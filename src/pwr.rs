@@ -18,3 +18,18 @@ pub fn set_backup_access(enabled: bool) {
     pwr.cr1.modify(|_, w| w.dbp().bit(enabled));
     pwr.cr1.modify(|_, w| w.dbp().bit(enabled));
 }
+
+/// Set Low-Power mode for CPU2
+pub fn set_cpu2_lpmode(mode: Cpu2LowPowerMode) {
+    let pwr = unsafe { &*stm32wb_pac::PWR::ptr() };
+    pwr.c2cr1.modify(|_, w| unsafe {w.lpms().bits(mode as u8)});
+}
+
+#[derive(Debug, Copy, Clone)]
+pub enum Cpu2LowPowerMode {
+    Stop0 = 0b000,
+    Stop1 = 0b001,
+    Stop2 = 0b010,
+    Standby = 0b011,
+    Shutdown = 0b100,
+}
