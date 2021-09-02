@@ -143,6 +143,10 @@ impl Rcc {
             };
         }
 
+        if let Some(smps_src) = config.smps_src {
+            self.rb.smpscr.modify(|_, w| unsafe { w.smpssel().bits(smps_src as u8) });
+        }
+
         // Set RF wake-up clock source
         self.rb
             .csr

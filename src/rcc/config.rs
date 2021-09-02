@@ -22,6 +22,8 @@ pub struct Config {
 
     pub(crate) lptim1_src: LptimClkSrc,
     pub(crate) lptim2_src: LptimClkSrc,
+
+    pub(crate) smps_src: Option<SmpsClkSrc>,
 }
 
 impl Default for Config {
@@ -43,6 +45,7 @@ impl Default for Config {
             rf_wkp_src: RfWakeupClock::None,
             lptim1_src: LptimClkSrc::Pclk,
             lptim2_src: LptimClkSrc::Pclk,
+            smps_src: None,
         }
     }
 }
@@ -128,6 +131,11 @@ impl Config {
 
     pub fn lptim2_src(mut self, sel: LptimClkSrc) -> Self {
         self.lptim2_src = sel;
+        self
+    }
+
+    pub fn smps_src(mut self, src: SmpsClkSrc) -> Self {
+        self.smps_src = Some(src);
         self
     }
 }

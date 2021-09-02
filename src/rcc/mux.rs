@@ -38,3 +38,19 @@ impl Default for UsbClkSrc {
         UsbClkSrc::PllSai1Q
     }
 }
+
+
+/// SMPS clock source, note, that when the radio is active, this is hard set to HSE
+#[derive(Debug, Copy, Clone)]
+pub enum SmpsClkSrc {
+    Hsi16 = 0b00,
+    Msi = 0b01,
+    Hse = 0b10,
+}
+
+impl Default for SmpsClkSrc {
+    /// The default is MSI after POR, but HSI16 from standby!
+    fn default() -> Self {
+        SmpsClkSrc::Msi
+    }
+}

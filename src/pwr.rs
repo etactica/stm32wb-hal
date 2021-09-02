@@ -25,6 +25,11 @@ pub fn set_cpu2_lpmode(mode: Cpu2LowPowerMode) {
     pwr.c2cr1.modify(|_, w| unsafe {w.lpms().bits(mode as u8)});
 }
 
+pub fn set_voltage_range(range: VoltageRange) {
+    let pwr = unsafe { &*stm32wb_pac::PWR::ptr() };
+    pwr.cr1.modify(|_, w| unsafe {w.vos().bits(range as u8)});
+}
+
 #[derive(Debug, Copy, Clone)]
 pub enum Cpu2LowPowerMode {
     Stop0 = 0b000,
@@ -32,4 +37,10 @@ pub enum Cpu2LowPowerMode {
     Stop2 = 0b010,
     Standby = 0b011,
     Shutdown = 0b100,
+}
+
+#[derive(Debug, Copy, Clone)]
+pub enum VoltageRange {
+    Range1 = 0b01,
+    Range2 = 0b10,
 }
