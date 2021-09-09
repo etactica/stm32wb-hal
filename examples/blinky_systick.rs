@@ -5,18 +5,16 @@
 #![no_std]
 #![no_main]
 
-extern crate cortex_m;
-#[macro_use]
-extern crate cortex_m_rt as rt;
-extern crate panic_halt;
-extern crate stm32wb_hal as hal;
+use cortex_m;
+use cortex_m_rt as rt;
+use panic_halt as _;
+use stm32wb_hal as hal;
 
 use embedded_hal::digital::v2::OutputPin;
 
 use crate::hal::delay::Delay;
 use crate::hal::prelude::*;
 use crate::rt::entry;
-use crate::rt::ExceptionFrame;
 
 #[entry]
 fn main() -> ! {
@@ -39,10 +37,4 @@ fn main() -> ! {
         timer.delay_ms(500 as u32);
         let _ = led.set_low();
     }
-}
-
-#[exception]
-#[allow(non_snake_case)]
-fn HardFault(ef: &ExceptionFrame) -> ! {
-    panic!("{:#?}", ef);
 }

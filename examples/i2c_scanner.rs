@@ -5,18 +5,16 @@
 #![no_std]
 #![no_main]
 
-extern crate cortex_m;
-#[macro_use]
-extern crate cortex_m_rt as rt;
-extern crate panic_semihosting;
-extern crate stm32wb_hal as hal;
+use cortex_m;
+use cortex_m_rt as rt;
+use panic_semihosting as _;
+use stm32wb_hal as hal;
 
 use cortex_m_semihosting::hprintln;
 
 use crate::hal::i2c::I2c;
 use crate::hal::prelude::*;
 use crate::rt::entry;
-use crate::rt::ExceptionFrame;
 
 #[entry]
 fn main() -> ! {
@@ -68,10 +66,4 @@ fn main() -> ! {
     loop {
         cortex_m::asm::wfi();
     }
-}
-
-#[exception]
-#[allow(non_snake_case)]
-fn HardFault(ef: &ExceptionFrame) -> ! {
-    panic!("{:#?}", ef);
 }
