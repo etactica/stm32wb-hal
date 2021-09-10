@@ -168,19 +168,19 @@ macro_rules! advanced_timer {
                 rcc.rb.$apbrstr.modify(|_, w| w.$timXrst().clear_bit());
 
                 if PINS::C1 {
-                    tim.ccmr1_output().modify(|_, w| unsafe { w.oc1pe().set_bit().oc1m().bits(6) });
+                    tim.ccmr1_output().modify(|_, w| w.oc1pe().set_bit().oc1m().bits(6) );
                 }
 
                 if PINS::C2 {
-                    tim.ccmr1_output().modify(|_, w| unsafe { w.oc2pe().set_bit().oc2m().bits(6) });
+                    tim.ccmr1_output().modify(|_, w| w.oc2pe().set_bit().oc2m().bits(6) );
                 }
 
                 if PINS::C3 {
-                    tim.ccmr2_output().modify(|_, w| unsafe { w.oc3pe().set_bit().oc3m().bits(6) });
+                    tim.ccmr2_output().modify(|_, w| w.oc3pe().set_bit().oc3m().bits(6) );
                 }
 
                 if PINS::C4 {
-                    tim.ccmr2_output().modify(|_, w| unsafe { w.oc4pe().set_bit().oc4m().bits(6) });
+                    tim.ccmr2_output().modify(|_, w| w.oc4pe().set_bit().oc4m().bits(6) );
                 }
 
                 let clk = rcc.clocks.pclk2().0;
@@ -237,19 +237,19 @@ macro_rules! standard_timer {
                 rcc.rb.$apbrstr.modify(|_, w| w.$timXrst().clear_bit());
 
                 if PINS::C1 {
-                    tim.ccmr1_output().modify(|_, w| unsafe { w.oc1pe().set_bit().oc1m().bits(6) });
+                    tim.ccmr1_output().modify(|_, w| w.oc1pe().set_bit().oc1m().bits(6) );
                 }
 
                 if PINS::C2 {
-                    tim.ccmr1_output().modify(|_, w| unsafe { w.oc2pe().set_bit().oc2m().bits(6) });
+                    tim.ccmr1_output().modify(|_, w| w.oc2pe().set_bit().oc2m().bits(6) );
                 }
 
                 if PINS::C3 {
-                    tim.ccmr2_output().modify(|_, w| unsafe { w.oc3pe().set_bit().oc3m().bits(6) });
+                    tim.ccmr2_output().modify(|_, w| w.oc3pe().set_bit().oc3m().bits(6) );
                 }
 
                 if PINS::C4 {
-                    tim.ccmr2_output().modify(|_, w| unsafe { w.oc4pe().set_bit().oc4m().bits(6) });
+                    tim.ccmr2_output().modify(|_, w| w.oc4pe().set_bit().oc4m().bits(6) );
                 }
 
                 let clk = rcc.clocks.pclk1().0;
