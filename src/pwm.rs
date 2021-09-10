@@ -115,31 +115,25 @@ impl PwmExt1 for TIM2 {
     }
 }
 
-// impl PwmExt1 for TIM16 {
-//     fn pwm<PINS, T>(self, _pins: PINS, freq: T, rcc: &mut Rcc) -> PINS::Channels
-//         where
-//             PINS: Pins<Self>,
-//             T: Into<Hertz>,
-//     {
-//         tim16(self, _pins, freq.into(), rcc)
-//     }
-// }
-//
-// impl PwmExt2 for TIM2 {
-//     fn pwm<PINS, T>(self, _pins: PINS, freq: T, rcc: &mut Rcc) -> PINS::Channels
-//         where
-//             PINS: Pins<Self>,
-//             T: Into<Hertz>,
-//     {
-//         // TODO: check if this is really not needed (in the f1xx examples value
-//         //       of remap is 0x0). if so, what's afio.mapr on wb55?
-//         //
-//         // mapr.mapr()
-//         //     .modify(|_, w| unsafe { w.tim2_remap().bits(PINS::REMAP) });
-//
-//         tim2(self, _pins, freq.into(), rcc)
-//     }
-// }
+impl PwmExt1 for TIM16 {
+    fn pwm<PINS, T>(self, _pins: PINS, freq: T, rcc: &mut Rcc) -> PINS::Channels
+        where
+            PINS: Pins<Self>,
+            T: Into<Hertz>,
+    {
+        tim16(self, _pins, freq.into(), rcc)
+    }
+}
+
+impl PwmExt1 for TIM17 {
+    fn pwm<PINS, T>(self, _pins: PINS, freq: T, rcc: &mut Rcc) -> PINS::Channels
+        where
+            PINS: Pins<Self>,
+            T: Into<Hertz>,
+    {
+        tim17(self, _pins, freq.into(), rcc)
+    }
+}
 
 pub struct Pwm<TIM, CHANNEL> {
     _channel: PhantomData<CHANNEL>,
@@ -302,7 +296,7 @@ macro_rules! small_timer {
                 rcc.rb.$apbrstr.modify(|_, w| w.$timXrst().clear_bit());
 
                 if PINS::C1 {
-                    tim.ccmr1_output().modify(|_, w| unsafe { w.oc1pe().set_bit().oc1m().bits(6) });
+                    tim.ccmr1_output().modify(|_, w| w.oc1pe().set_bit().oc1m().bits(6) );
                 }
 
                 // TODO: The uncommented lines are awaiting PAC updates to be valid.
@@ -316,7 +310,7 @@ macro_rules! small_timer {
 
                 // maybe this is all u32? also, why no `- 1` vs `timer.rs`?
                 let psc = ticks / (1 << 16);
-                tim.psc.write(|w| { w.psc().bits(psc as $psc_width) });
+                tim.psc.write(|w| unsafe { w.psc().bits(psc as $psc_width) });
                 let arr = ticks / (psc + 1);
                 unsafe { tim.arr.write(|w| { w.arr().bits(arr as $arr_width) }); }
 
@@ -426,8 +420,8 @@ advanced_timer! {
 standard_timer! {
     TIM2: (tim2, tim2en, tim2rst, apb1enr1, apb1rstr1, u16),
 }
-//
-// small_timer! {
-//     TIM16: (tim16, tim16en, tim16rst, apb2enr, apb2rstr, u16, u16),
-//     // TIM17: (tim17, tim17en, tim17rst, apb2enr, apb2rstr, u16, u16),
-// }
+
+small_timer! {
+    TIM16: (tim16, tim16en, tim16rst, apb2enr, apb2rstr, u16, u16),
+    TIM17: (tim17, tim17en, tim17rst, apb2enr, apb2rstr, u16, u16),
+}
