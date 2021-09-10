@@ -32,6 +32,7 @@ pub mod rcc;
 pub mod rtc;
 pub mod smps;
 pub mod time;
+pub mod timer;
 pub mod tl_mbox;
 pub mod traits;
 pub mod usb;
