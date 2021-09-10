@@ -8,6 +8,7 @@ use crate::stm32::{TIM1, TIM16, TIM17, TIM2};
 
 use crate::gpio::gpioa::*;
 use crate::gpio::gpiob::*;
+use crate::gpio::gpioe::*;
 use crate::gpio::{Alternate, Output, PushPull, AF1, AF14};
 use crate::rcc::Rcc;
 use crate::time::Hertz;
@@ -59,26 +60,25 @@ pins_to_channels_mapping! {
     // TIM1: (PA10), (C3), (AF1);
     // TIM1: (PA11), (C4), (AF1);
 
-    // TIM2
     TIM2: (PA0, PA1, PA2, PA3), (C1, C2, C3, C4), (AF1, AF1, AF1, AF1);
     TIM2: (PA0), (C1), (AF1);
     TIM2: (PA1), (C2), (AF1);
     TIM2: (PA2), (C3), (AF1);
     TIM2: (PA3), (C4), (AF1);
     TIM2: (PA5), (C1), (AF1);
+    TIM2: (PA15), (C1), (AF1);
     TIM2: (PB3, PB10, PB11), (C2, C3, C4), (AF1, AF1, AF1);
+    TIM2: (PB3), (C2), (AF1);
     TIM2: (PB10), (C3), (AF1);
     TIM2: (PB11), (C4), (AF1);
-    TIM2: (PA15), (C1), (AF1);
 
-    // TIM16: (PB14), (C1), (AF14);
-    // TIM16: (PB15), (C2), (AF14);
-    // TIM16: (PA2), (C1), (AF14);
-    // TIM16: (PA3), (C2), (AF14);
-    // TIM16: (PB14, PB15), (C1, C2), (AF14, AF14);
-    // TIM16: (PB14, PA3), (C1, C2), (AF14, AF14);
-    // TIM16: (PA2, PB15), (C1, C2), (AF14, AF14);
-    // TIM16: (PA2, PA3), (C1, C2), (AF14, AF14);
+    TIM16: (PA6), (C1), (AF14);
+    TIM16: (PB8), (C1), (AF14);
+    TIM16: (PE0), (C1), (AF14);
+
+    TIM17: (PA7), (C1), (AF14);
+    TIM17: (PB9), (C1), (AF14);
+    TIM17: (PE1), (C1), (AF14);
 }
 
 pub trait PwmExt1: Sized {
