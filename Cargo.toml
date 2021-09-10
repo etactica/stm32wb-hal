@@ -84,3 +84,7 @@ lto = true
 
 [package.metadata.docs.rs]
 features = ["xG-package", "stm32-usbd"]
+
+# Allows us to hack on the PAC/svd.
+[patch.crates-io]
+stm32wb = { path = "../stm32-rs/stm32wb" }
